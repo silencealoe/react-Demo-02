@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component,Fragment } from 'react';
 import { Layout, Menu, Breadcrumb, Icon,Input} from 'antd';
 import 'antd/dist/antd.css';
 import AddItem from '../components/AddItem'
 import store from '../store/index'
 import {getList} from '../store/actionCreator'
-import {ADD_LIST,DELETE_LIST} from '../store/actionType'
+import {ADD_LIST,DELETE_LIST,CHANGE_INPUT} from '../store/actionType'
 import {connect} from 'react-redux'
 
 const { SubMenu } = Menu;
@@ -12,44 +12,32 @@ const { Header, Content, Footer, Sider } = Layout;
 const { Search } = Input;
 
 
+const TodoList=(props)=>{   //UI组件  提高程序运行性能 ，没有this关键字
+  let {inputVal,list,deleteItem,handleInput,handleAdd}=props
+  return(   
+    <Fragment>
+      <Search
+        placeholder="input search text"
+        enterButton="add"
+        size="large"
+        value={inputVal}
+        onChange={handleInput}
+        style={{width:400}}
+        onSearch={handleAdd}
+      /> 
+      <AddItem list={list} deleteItem={deleteItem}/>
+  </Fragment>
+
+  )
+}
+
 class Index extends Component {
-  constructor(props) {
-    super(props);
-    this.state = store.getState()
-    this.storeChange=this.storeChange.bind(this)
-    this.handleInput=this.handleInput.bind(this)
-    this.handleAdd=this.handleAdd.bind(this)
-    this.deleteItem=this.deleteItem.bind(this)
-    store.subscribe(this.storeChange)
-  }
-  storeChange(){
-    this.setState(store.getState())
-  }
-  deleteItem(index){
-    const action={
-      type:DELETE_LIST,
-      index
-    }
-    store.dispatch(action)
-  }
-  handleInput(e){
-    console.log(e.target.value)
-    this.setState({
-      inputVal:e.target.value
-    })
-  }
-  handleAdd(){
-    const addAction={
-      type:ADD_LIST,
-      value:this.state.inputVal
-    }
-    store.dispatch(addAction)
-  }
   componentDidMount(){
-    const action=getList()
-    store.dispatch(action)
+    this.props.getTodoList()
   }
   render() { 
+    // let {inputVal,list,deleteItem,handleInput,handleAdd}=this.props
+    
     return ( 
       <Layout>
       <Header className="header">
@@ -124,16 +112,7 @@ class Index extends Component {
             </Menu>
           </Sider>
           <Content style={{ padding: '0 24px', minHeight: 280 }}>
-          <Search
-            placeholder="input search text"
-            enterButton="add"
-            size="large"
-            value={this.props.inputVal}
-            onChange={this.handleInput}
-            style={{width:400}}
-            onSearch={this.handleAdd}
-          /> 
-          <AddItem list={this.state.list} deleteItem={this.deleteItem}/>
+           <TodoList {...this.props}></TodoList>
           </Content>
         </Layout>
       </Content>
@@ -145,7 +124,38 @@ class Index extends Component {
 const mapStateToProps=(state)=>{
   // console.log(state)
   return {
-    inputVal:state.inputVal
+    inputVal:state.inputVal,
+    list:state.list
   }
 }
-export default connect(mapStateToProps,null)(Index);
+const mapDispatchToProps=(dispatch)=>{
+  return {
+    handleInput(e){
+      // console.log(e.target.value)
+      const action={
+        type:CHANGE_INPUT,
+        value:e.target.value
+      }
+      dispatch(action)
+    },
+    handleAdd(){
+      // console.log('value')
+      const addAction={
+        type:ADD_LIST
+      }
+      dispatch(addAction)
+    },
+    deleteItem(index){
+      const action={
+        type:DELETE_LIST,
+        index
+      }
+      dispatch(action)
+    },
+    getTodoList(){
+      const gettodolist=getList()
+      dispatch(gettodolist)
+    }
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Index);
