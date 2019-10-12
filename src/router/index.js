@@ -1,6 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router,Route,Link} from 'react-router-dom'
 import Index from '../views/index'
+// import TodoList from '../components/Todolist'
 import App from '../app';
 
 const AppRouter = ()=>{
@@ -11,6 +12,7 @@ const AppRouter = ()=>{
         <Route path="/" exact/>
         <Route path="/list"/>
         <Route path="/my"/>
+        {/* <Route path="/index/todolist" component={TodoList}/> */}
       </App>
     </Router>
   )

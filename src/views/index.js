@@ -2,8 +2,6 @@ import React, { Component} from 'react';
 import { Layout} from 'antd';
 import {connect} from 'react-redux'
 import 'antd/dist/antd.css';
-
-import Header from '../components/Header'
 import Breadcrumb from '../components/Breadcrumb'
 import Sider from '../components/Sider'
 import TodoList from '../components/Todolist'
@@ -25,6 +23,9 @@ class Index extends Component {
         <Layout style={{ padding: '24px 0', background: '#fff',height:800 }}>
           <Sider/>
           <Content style={{ padding: '0 24px', minHeight: 280 }}>
+            {
+              // this.props.children
+            }
            <TodoList {...this.props}></TodoList>
           </Content>
         </Layout>

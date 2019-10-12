@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Layout,Menu, Icon} from 'antd'
+import {NavLink} from 'react-router-dom'
 const {Sider}=Layout
 const { SubMenu } = Menu;
 class MySider extends Component {
@@ -24,7 +25,11 @@ class MySider extends Component {
           </span>
         }
       >
-        <Menu.Item key="1">option1</Menu.Item>
+        <Menu.Item key="1">
+          <NavLink to="/todolist">
+            option1
+          </NavLink>
+        </Menu.Item>
         <Menu.Item key="2">option2</Menu.Item>
         <Menu.Item key="3">option3</Menu.Item>
         <Menu.Item key="4">option4</Menu.Item>

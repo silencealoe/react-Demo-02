@@ -20,12 +20,19 @@ class MyHeader extends Component {
         >
         
           <Menu.Item key="1">
-           <NavLink to="/index">
-            nav 1 
+            <NavLink to="/index">
+              nav 1 
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="2">nav 2</Menu.Item>
-          <Menu.Item key="3">nav 3</Menu.Item>
+          <Menu.Item key="2"> 
+            <NavLink to="/list">
+              nav 2 
+            </NavLink></Menu.Item>
+          <Menu.Item key="3">
+            <NavLink to="/mypage">
+              nav 3
+            </NavLink>
+          </Menu.Item>
         </Menu>
         
       </Header> );
