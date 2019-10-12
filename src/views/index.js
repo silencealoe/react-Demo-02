@@ -1,18 +1,53 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Breadcrumb, Icon,Input} from 'antd';
 import 'antd/dist/antd.css';
-import AddItem from './components/AddItem'
-import store from './store/index'
+import AddItem from '../components/AddItem'
+import store from '../store/index'
+import {getList} from '../store/actionCreator'
+import {ADD_LIST,DELETE_LIST} from '../store/actionType'
+import {connect} from 'react-redux'
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 const { Search } = Input;
 
 
-class App extends Component {
+class Index extends Component {
   constructor(props) {
     super(props);
     this.state = store.getState()
+    this.storeChange=this.storeChange.bind(this)
+    this.handleInput=this.handleInput.bind(this)
+    this.handleAdd=this.handleAdd.bind(this)
+    this.deleteItem=this.deleteItem.bind(this)
+    store.subscribe(this.storeChange)
+  }
+  storeChange(){
+    this.setState(store.getState())
+  }
+  deleteItem(index){
+    const action={
+      type:DELETE_LIST,
+      index
+    }
+    store.dispatch(action)
+  }
+  handleInput(e){
+    console.log(e.target.value)
+    this.setState({
+      inputVal:e.target.value
+    })
+  }
+  handleAdd(){
+    const addAction={
+      type:ADD_LIST,
+      value:this.state.inputVal
+    }
+    store.dispatch(addAction)
+  }
+  componentDidMount(){
+    const action=getList()
+    store.dispatch(action)
   }
   render() { 
     return ( 
@@ -93,12 +128,12 @@ class App extends Component {
             placeholder="input search text"
             enterButton="add"
             size="large"
-            value={this.state.inputVal}
-            onChange={(e)=>console.log(e.target.value)}
+            value={this.props.inputVal}
+            onChange={this.handleInput}
             style={{width:400}}
-            onSearch={value => console.log(value)}
+            onSearch={this.handleAdd}
           /> 
-          <AddItem list={this.state.list}/>
+          <AddItem list={this.state.list} deleteItem={this.deleteItem}/>
           </Content>
         </Layout>
       </Content>
@@ -107,4 +142,10 @@ class App extends Component {
     )
   }
 }
-export default App;
+const mapStateToProps=(state)=>{
+  // console.log(state)
+  return {
+    inputVal:state.inputVal
+  }
+}
+export default connect(mapStateToProps,null)(Index);

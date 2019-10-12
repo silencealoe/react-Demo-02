@@ -5,6 +5,12 @@ class AddItem extends Component {
   constructor(props) {
     super(props);
     this.state = {  }
+    // this.handleDelete=this.handleDelete.bind(this)
+
+  }
+  handleDelete(index){
+    console.log(index)
+    this.props.deleteItem(index)
   }
   render() { 
     return (    <List
@@ -12,9 +18,9 @@ class AddItem extends Component {
       
       itemLayout="horizontal"
       dataSource={this.props.list}
-      renderItem={item => (
+      renderItem={(item,index) => (
         <List.Item
-          actions={[<a key="list-loadmore-edit"><Button type="primary">delete</Button></a>]}
+          actions={[<a key="list-loadmore-edit"><Button type="primary" onClick={this.handleDelete.bind(this,index)}>delete</Button></a>]}
         >
           <Skeleton avatar title={false} loading={item.loading} active>
             <List.Item.Meta
