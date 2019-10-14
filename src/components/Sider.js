@@ -26,11 +26,15 @@ class MySider extends Component {
         }
       >
         <Menu.Item key="1">
-          <NavLink to="/todolist">
+          <NavLink to="/index/todolist">
             option1
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="2">option2</Menu.Item>
+        <Menu.Item key="2">
+          <NavLink to="/index/vedio">
+            option2
+          </NavLink>
+          </Menu.Item>
         <Menu.Item key="3">option3</Menu.Item>
         <Menu.Item key="4">option4</Menu.Item>
       </SubMenu>

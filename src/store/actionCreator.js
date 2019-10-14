@@ -1,9 +1,17 @@
-import {GET_TODOLIST} from './actionType'
+import {GET_TODOLIST,CHANGE_HEADERKEY,CHANGE_HEADERSHOW} from './actionType'
 import axios from 'axios'
 
 export const getListAction=(list)=>({
   type:GET_TODOLIST,
   list
+})
+export const changeHeaderKey=(key)=>({
+  type:CHANGE_HEADERKEY,
+  key
+})
+export const changeHeaderShow=(value)=>({
+  type:CHANGE_HEADERSHOW,
+  value
 })
 export const getList=()=>{
 return (dispatch)=>{
@@ -11,6 +19,5 @@ return (dispatch)=>{
         const action = getListAction(res.data.list)
         dispatch(action)
   })
-
 } 
 }

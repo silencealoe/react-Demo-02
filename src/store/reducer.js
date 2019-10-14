@@ -1,7 +1,9 @@
-import {GET_TODOLIST,ADD_LIST,DELETE_LIST,CHANGE_INPUT} from './actionType'
+import {GET_TODOLIST,ADD_LIST,DELETE_LIST,CHANGE_INPUT,CHANGE_HEADERKEY,CHANGE_HEADERSHOW} from './actionType'
 let defaultData={
   inputVal:'write',
-  list:['今天是星期四了','还有15分钟就下班了','开心']
+  list:['今天是星期四了','还有15分钟就下班了','开心'],
+  headerkey:0,
+  headerShow:true
 }
 export default (state = defaultData , action)=>{ 
   // console.log(action)
@@ -25,7 +27,16 @@ export default (state = defaultData , action)=>{
     let newState = JSON.parse(JSON.stringify(state))
     newState.list.splice(action.index,1)
     return newState
-
+  }
+  if(action.type === CHANGE_HEADERKEY){
+    let newState = JSON.parse(JSON.stringify(state))
+    newState.headerkey = action.key
+    return newState
+  }
+  if(action.type === CHANGE_HEADERSHOW){
+    let newState = JSON.parse(JSON.stringify(state))
+    newState.headerShow = action.value
+    return newState
   }
   return state
 }

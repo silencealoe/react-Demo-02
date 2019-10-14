@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import {Layout,Menu} from 'antd'
+import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 
 const {Header}=Layout
 class MyHeader extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {  }
+  componentDidMount(){
+    
+  }
+  componentDidUpdate(){
+    
   }
   render() { 
     return ( 
@@ -15,7 +18,8 @@ class MyHeader extends Component {
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={['1']}
+          // defaultSelectedKeys={[this.props.headerKey.toString()]} // default 只适用于默认值，后期改变值，不会改变组件
+          selectedKeys={[this.props.headerKey.toString()]}
           style={{ lineHeight: '64px' }}
         >
         
@@ -25,7 +29,7 @@ class MyHeader extends Component {
             </NavLink>
           </Menu.Item>
           <Menu.Item key="2"> 
-            <NavLink to="/list">
+            <NavLink to="/list/1234">
               nav 2 
             </NavLink></Menu.Item>
           <Menu.Item key="3">
@@ -34,9 +38,13 @@ class MyHeader extends Component {
             </NavLink>
           </Menu.Item>
         </Menu>
-        
       </Header> );
   }
 }
+const mapStateToProps=(state)=>{
+  return{
+    headerKey:state.headerkey
+  }
+}
  
-export default MyHeader;
+export default connect(mapStateToProps,null)(MyHeader);
