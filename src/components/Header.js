@@ -25,7 +25,7 @@ class MyHeader extends Component {
         
           <Menu.Item key="1">
             <NavLink to="/index">
-              nav 1 
+              首页
             </NavLink>
           </Menu.Item>
           <Menu.Item key="2"> 

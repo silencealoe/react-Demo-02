@@ -21,18 +21,18 @@ class MySider extends Component {
         title={
           <span>
             <Icon type="user" />
-            subnav 1
+            React 基础
           </span>
         }
       >
         <Menu.Item key="1">
           <NavLink to="/index/todolist">
-            option1
+            Redux(Todolist)
           </NavLink>
         </Menu.Item>
         <Menu.Item key="2">
-          <NavLink to="/index/vedio">
-            option2
+          <NavLink to="/index/reacthocks">
+            React Hocks
           </NavLink>
           </Menu.Item>
         <Menu.Item key="3">option3</Menu.Item>
