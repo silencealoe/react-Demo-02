@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Layout,Menu, Icon} from 'antd'
+import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
 const {Sider}=Layout
 const { SubMenu } = Menu;
@@ -13,6 +14,7 @@ class MySider extends Component {
     <Menu
       mode="inline"
       defaultSelectedKeys={['1']}
+      selectedKeys={[this.props.sideKey.toString()]}
       defaultOpenKeys={['sub1']}
       style={{ height: '100%' }}
     >
@@ -70,5 +72,11 @@ class MySider extends Component {
   </Sider> );
   }
 }
+
+const mapStateToProps=(state)=>{
+  return{
+    sideKey:state.sideKey
+  }
+}
  
-export default MySider;
+export default connect(mapStateToProps,null)(MySider);

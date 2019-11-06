@@ -1,9 +1,10 @@
-import {GET_TODOLIST,ADD_LIST,DELETE_LIST,CHANGE_INPUT,CHANGE_HEADERKEY,CHANGE_HEADERSHOW} from './actionType'
+import {GET_TODOLIST,ADD_LIST,DELETE_LIST,CHANGE_INPUT,CHANGE_HEADERKEY,CHANGE_HEADERSHOW,CHANGE_SIDEKEY} from './actionType'
 let defaultData={
   inputVal:'write',
   list:['今天是星期四了','还有15分钟就下班了','开心'],
   headerkey:0,
-  headerShow:true
+  headerShow:true,
+  sideKey:0
 }
 export default (state = defaultData , action)=>{ 
   // console.log(action)
@@ -36,6 +37,11 @@ export default (state = defaultData , action)=>{
   if(action.type === CHANGE_HEADERSHOW){
     let newState = JSON.parse(JSON.stringify(state))
     newState.headerShow = action.value
+    return newState
+  }
+  if(action.type === CHANGE_SIDEKEY){
+    let newState = JSON.parse(JSON.stringify(state))
+    newState.sideKey = action.key
     return newState
   }
   return state

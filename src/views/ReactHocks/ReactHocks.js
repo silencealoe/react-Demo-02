@@ -1,9 +1,54 @@
-import React, { Component,useState, useEffect} from 'react';
+import React, { Component,useState, useEffect,Fragment,useMemo,useRef,createContext,useContext, Children} from 'react';
+import {Input,Button} from 'antd'
+import {connect} from 'react-redux'
+import {changeSideKey} from '../../store/actionCreator'
 
+const countContext=createContext()
+function UseRefDemo(){
+  const inputVal=useRef(false)
+  const ButtonClick=()=>{
+    console.log(inputVal)
+
+    inputVal.current.value="hahahahha"
+  }
+  return(
+    <Fragment>
+      <input type="text" ref={inputVal}/>
+      {/* <Input type="primary" style={{width:400}} ref={inputVal}/> */}
+      <Button onClick={ButtonClick}>在input上展示文字</Button>
+    </Fragment>
+  )
+}
+function MemoChild({name,children}){
+  function changeXiaohong(name){
+    console.log('小红开始表演')
+    let str='点击了小红'
+    return name+str
+  }
+  const actionXiaohong=useMemo(()=>changeXiaohong(name),[name])   //第二个参数匹配成功才会执行只有点击小红 值发生改变才会触发会触发这个方法
+  return(
+    <Fragment>
+      <div>{actionXiaohong}</div>
+      <div>{children}</div>
+    </Fragment>
+  )
+}
+function ReactUseMemo(){
+  const [xiaohong,setxiaohong]=useState('我是小红')
+  const [xiaoming,setxiaoming]=useState('我是小明')
+  return(
+    <Fragment>
+      <h1>使用useMemo进行优化</h1>
+      <button onClick={()=>{setxiaohong(xiaohong+1)}}>小红</button>
+      <button onClick={()=>{setxiaoming(new Date().getTime()+'come on')}}>小明</button>
+      <MemoChild name={xiaohong}>{xiaoming}</MemoChild>
+    </Fragment>
+  )
+}
 function ReactHocks4(){
   const [count,setCount]=useState(0)
   useEffect(()=>{
-    console.log(`ComponentDidMount=>You clicked ${count} times`)
+    // console.log(`ComponentDidMount=>You clicked ${count} times`)
     return ()=>{
       console.log('bye bye')
     }
@@ -20,7 +65,6 @@ function ReactHocks3(){
   const [count,setCount]=useState(0)
   useEffect(()=>{
     console.log(`ComponentDidMount=>You clicked ${count} times`)
-
   })
   return(
   <div>
@@ -44,12 +88,68 @@ function ReactHocks2(){   //React Hooks就是用函数的形式代替原来的�
     </div>
   )
 }
+
+function ReactUseContextChild(){  //因为没有constructor所以 参数props拿不到 值为空
+  // console.log(props)
+  const value=useContext(countContext)
+  console.log(value)
+  function deleteIt(index){
+    console.log('index',index)
+    value.del(index)
+  }
+  return (
+    <>
+      <p>收到来自父组件的值：{value.count}</p>
+      {
+        value.chids.map((item,index)=>(
+          <p key={item.id}>{item.name} <button onClick={deleteIt.bind(null,index)}>delete</button></p>
+        ))
+      }
+    </>
+  )
+}
+function ReactUseContext(props){  //父组件中有constructor所以参数可以拿到父组件传的值
+  // console.log(props)
+  let [count,setCount]=useState(0)
+  let [children,setChildren]=useState([{name:'小明',id:11},{name:'小红',id:12},{name:'小黄',id:13},{name:'小蓝',id:14}])
+  // let obj=[{name:'xiaoming',age:12}]
+  function deleteItem(index){
+    console.log('fff',index)
+    children.splice(index,1)
+    console.log(children)
+    setChildren(children)
+    console.log(children)
+   }
+   useEffect(()=>{
+    console.log(`ComponentDidMount=>You clicked ${children[0].id} times`)
+  },[children])
+  return(
+    <>
+      <h1>usecontext实现父子组件传值</h1>
+      <p>父组件中的值：{count}</p>
+      <h2>父亲的孩子们</h2>
+      {
+        children.map(item=>(
+         <p key={item.id}>{item.name}</p>
+        ))
+      }
+
+      <button onClick={()=>{setCount(count+1)}}>click(点击传值)</button>
+      <countContext.Provider value={{count,chids:children,del:deleteItem}}>
+          <ReactUseContextChild />
+      </countContext.Provider>
+    </>
+  )
+}
 class ReactHocks extends Component {
   constructor(props) {
     super(props);
     this.state = {  
       nums:0
     }
+  }
+  componentWillMount(){
+    this.props.changeSideKeys(2)
   }
   handleClick(){
     // console.log(this.state.nums++)
@@ -61,15 +161,26 @@ class ReactHocks extends Component {
   render() { 
     return (
       <div>
+        <h1>React Hooks</h1>
         <h2>不使用ReactHocks</h2> 
         <p>you click <span>{this.state.nums}</span> times</p>
         <button onClick={this.handleClick.bind(this)}>click</button>
         <ReactHocks2/>
         <ReactHocks3/>
         <ReactHocks4/>
+        <ReactUseMemo/>
+        <UseRefDemo/>
+        <ReactUseContext text={'给你100块'}/>
       </div>
        );
   }
 }
- 
-export default ReactHocks;
+ const mapDispatchToProps=(dispatch)=>{
+   return{
+     changeSideKeys(key){
+       const action=changeSideKey(key)
+       dispatch(action)
+     }
+   }
+ }
+export default connect(null,mapDispatchToProps)(ReactHocks);

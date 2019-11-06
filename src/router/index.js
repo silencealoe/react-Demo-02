@@ -19,8 +19,9 @@ const AppRouter = ()=>{
             return(
               <Index {...props}>
               <Switch>
-                <Route path="/index/todolist" component={TodoList}/>
+                <Route path="/index/todolist" component={TodoList} exact/>
                 <Route path="/index/reacthocks" component={ReactHocks}/>
+                <Redirect from="/index" to="/index/todolist"/>
               </Switch>
             </Index>
             )
@@ -29,7 +30,7 @@ const AppRouter = ()=>{
           }/>
           <Route path="/list/:listid" component={List}  />
           <Route path="/mypage" component={Mypage} />
-          <Redirect from="/" to="/index/todolist"/>
+          <Redirect from="/" to="/index/todolist" exact/>
           <Route  component={NotFound} />
           
         </Switch>

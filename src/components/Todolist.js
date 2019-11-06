@@ -2,7 +2,7 @@ import React,{Component,Fragment}from 'react';
 import {Input} from 'antd'
 import {connect} from 'react-redux'
 import AddItem from '../components/AddItem'
-import {getList} from '../store/actionCreator'
+import {getList,changeSideKey} from '../store/actionCreator'
 import {ADD_LIST,DELETE_LIST,CHANGE_INPUT} from '../store/actionType'
 
 const { Search } = Input;
@@ -15,6 +15,7 @@ class TodoList extends Component {
   }
   componentWillMount(){
     this.props.getTodoList()
+    this.props.changeSideKey(1)
   }
   render() { 
     let {inputVal,list,handleAdd,handleInput,deleteItem} =this.props
@@ -69,6 +70,10 @@ const mapDispatchToProps=(dispatch)=>{
     getTodoList(){
       const gettodolist=getList()
       dispatch(gettodolist)
+    },
+    changeSideKey(key){
+       const action=changeSideKey(key)
+       dispatch(action)
     }
   }
 }
