@@ -1,7 +1,9 @@
-import React, { Component,useState, useEffect,Fragment,useMemo,useRef,createContext,useContext, Children} from 'react';
+import React, { Component,useState, useEffect,Fragment,useMemo,useRef,createContext,useContext,useReducer} from 'react';
 import {Input,Button} from 'antd'
 import {connect} from 'react-redux'
 import {changeSideKey} from '../../store/actionCreator'
+import UseReducerDemo from './useReducerDemo';
+import {Todolist} from './useReducerDemo/hooksTodolist'
 
 const countContext=createContext()
 function UseRefDemo(){
@@ -89,16 +91,17 @@ function ReactHocks2(){   //React Hooks就是用函数的形式代替原来的�
   )
 }
 
-function ReactUseContextChild(){  //因为没有constructor所以 参数props拿不到 值为空
+function ReactUseContextChild(){  //因为没有constructor所以 参数props拿不到 值为空（没有了constructor构造函数也就没有了props的接收）
   // console.log(props)
   const value=useContext(countContext)
-  console.log(value)
+  // const [data,setdata]=useState(value.chids)
   function deleteIt(index){
     console.log('index',index)
     value.del(index)
   }
   return (
     <>
+    <h2>子传父：</h2>
       <p>收到来自父组件的值：{value.count}</p>
       {
         value.chids.map((item,index)=>(
@@ -114,15 +117,9 @@ function ReactUseContext(props){  //父组件中有constructor所以参数可以
   let [children,setChildren]=useState([{name:'小明',id:11},{name:'小红',id:12},{name:'小黄',id:13},{name:'小蓝',id:14}])
   // let obj=[{name:'xiaoming',age:12}]
   function deleteItem(index){
-    console.log('fff',index)
     children.splice(index,1)
-    console.log(children)
-    setChildren(children)
-    console.log(children)
+    setChildren(children.concat())  
    }
-   useEffect(()=>{
-    console.log(`ComponentDidMount=>You clicked ${children[0].id} times`)
-  },[children])
   return(
     <>
       <h1>usecontext实现父子组件传值</h1>
@@ -139,6 +136,23 @@ function ReactUseContext(props){  //父组件中有constructor所以参数可以
           <ReactUseContextChild />
       </countContext.Provider>
     </>
+  )
+}
+function ReactUseReducer(){
+  const [count,dispatch]=useReducer((state,action)=>{
+    switch(action.type){
+      case 'inc':return state+1
+      case 'dec':return state-1
+      default:return state
+    }
+  },0)
+  return(
+    <div>
+      <h2>useReducer</h2>
+      <p>现在的分数是：{count}</p>
+      <button onClick={()=>{dispatch({type:'inc'})}}>Increment</button>
+      <button onClick={()=>{dispatch({type:'dec'})}}>Dncrement</button>
+    </div>
   )
 }
 class ReactHocks extends Component {
@@ -171,6 +185,9 @@ class ReactHocks extends Component {
         <ReactUseMemo/>
         <UseRefDemo/>
         <ReactUseContext text={'给你100块'}/>
+        <ReactUseReducer/>
+        <UseReducerDemo/>
+        <Todolist/>
       </div>
        );
   }
