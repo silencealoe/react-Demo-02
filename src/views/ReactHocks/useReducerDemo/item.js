@@ -1,12 +1,10 @@
 import React, {useContext } from 'react';
 import {todolist} from './hooksTodolist'
 function Item(){
-  console.log(useContext(todolist))
   const {listarray,dispatch}=useContext(todolist)
-  function delteItem(index){
-    console.log(index)
-    
-
+  function delteItem(ind){
+    console.log(ind)
+    dispatch({type:'deleteitem',index:ind})
   }
   return(
     <div>

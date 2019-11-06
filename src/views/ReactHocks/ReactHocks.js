@@ -1,7 +1,7 @@
 import React, { Component,useState, useEffect,Fragment,useMemo,useRef,createContext,useContext,useReducer} from 'react';
 import {Input,Button} from 'antd'
 import {connect} from 'react-redux'
-import {changeSideKey} from '../../store/actionCreator'
+import {changeSideKey} from '@/store/actionCreator'
 import UseReducerDemo from './useReducerDemo';
 import {Todolist} from './useReducerDemo/hooksTodolist'
 
