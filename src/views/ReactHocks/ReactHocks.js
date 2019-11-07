@@ -1,5 +1,5 @@
-import React, { Component,useState, useEffect,Fragment,useMemo,useRef,createContext,useContext,useReducer} from 'react';
-import {Input,Button} from 'antd'
+import React, { Component,useState, useEffect,Fragment,useMemo,useRef,createContext,useContext,useReducer, useCallback} from 'react';
+import {Button} from 'antd'
 import {connect} from 'react-redux'
 import {changeSideKey} from '@/store/actionCreator'
 import UseReducerDemo from './useReducerDemo';
@@ -9,25 +9,32 @@ const countContext=createContext()
 function UseRefDemo(){
   const inputVal=useRef(false)
   const ButtonClick=()=>{
-    console.log(inputVal)
-
+    console.log(inputVal) //获取dom元素
     inputVal.current.value="hahahahha"
   }
+  const [text,settext]=useState('123')
+  const textRef=useRef()
+  useEffect(()=>{
+      textRef.current=text //保存变量
+      console.log(textRef)
+  })
   return(
     <Fragment>
       <input type="text" ref={inputVal}/>
       {/* <Input type="primary" style={{width:400}} ref={inputVal}/> */}
       <Button onClick={ButtonClick}>在input上展示文字</Button>
+      <br/>
+      <input type="text" value={text} onChange={(e)=>{settext(e.target.value)}}/>
     </Fragment>
   )
-}
-function MemoChild({name,children}){
+} 
+function MemoChild({name,children}){ //name是标签上传的值，children是标签内传的值
   function changeXiaohong(name){
     console.log('小红开始表演')
     let str='点击了小红'
     return name+str
   }
-  const actionXiaohong=useMemo(()=>changeXiaohong(name),[name])   //第二个参数匹配成功才会执行只有点击小红 值发生改变才会触发会触发这个方法
+  const actionXiaohong=useMemo(()=>changeXiaohong(name),[name])   //缓存状态，第二个参数匹配成功才会执行只有点击小红 值发生改变才会触发这个方法
   return(
     <Fragment>
       <div>{actionXiaohong}</div>
@@ -43,7 +50,8 @@ function ReactUseMemo(){
       <h1>使用useMemo进行优化</h1>
       <button onClick={()=>{setxiaohong(xiaohong+1)}}>小红</button>
       <button onClick={()=>{setxiaoming(new Date().getTime()+'come on')}}>小明</button>
-      <MemoChild name={xiaohong}>{xiaoming}</MemoChild>
+      <MemoChild name={xiaohong}>{xiaoming}</MemoChild>  {//父组件向子组件传值
+      }
     </Fragment>
   )
 }
@@ -138,6 +146,34 @@ function ReactUseContext(props){  //父组件中有constructor所以参数可以
     </>
   )
 }
+function useWinSize(){
+  const [size,setSize]=useState({
+    width:document.documentElement.clientWidth,
+    height:document.documentElement.clientHeight
+  })
+  const onResize=useCallback(()=>{
+    setSize({
+      width:document.documentElement.clientWidth,
+      height:document.documentElement.clientHeight
+    })
+  },[])
+  useEffect(()=>{
+    window.addEventListener('resize',onResize)
+    return ()=>{
+      window.removeEventListener('resize',onResize)
+    }
+  })
+  return size
+}
+function GetWinSize(){
+  const size=useWinSize()
+  return (
+    <div>
+      <h2>window Size</h2>
+      <div>页面size：{size.width}x{size.height}</div>
+    </div>
+  )
+}
 function ReactUseReducer(){
   const [count,dispatch]=useReducer((state,action)=>{
     switch(action.type){
@@ -167,7 +203,6 @@ class ReactHocks extends Component {
   }
   handleClick(){
     // console.log(this.state.nums++)
-
     this.setState({
       nums:this.state.nums+1
     })
@@ -188,6 +223,7 @@ class ReactHocks extends Component {
         <ReactUseReducer/>
         <UseReducerDemo/>
         <Todolist/>
+        <GetWinSize/>
       </div>
        );
   }

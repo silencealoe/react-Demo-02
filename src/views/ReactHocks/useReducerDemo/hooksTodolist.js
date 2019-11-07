@@ -11,7 +11,8 @@ export const Todolist=()=>{
       case ADDITEM:{
                    return {
                      ...state,
-                     list:[...state.list,{id:`10${state.list.length}`,name:state.defVal}]
+                     list:[...state.list,{id:`10${state.list.length}`,name:state.defVal}],
+                     defVal:''
                       }
                   }
       case CHANGEVALUE:{  
