@@ -146,7 +146,7 @@ function ReactUseContext(props){  //父组件中有constructor所以参数可以
     </>
   )
 }
-function useWinSize(){
+function useWinSize(){  //自定义hooks
   const [size,setSize]=useState({
     width:document.documentElement.clientWidth,
     height:document.documentElement.clientHeight

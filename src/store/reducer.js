@@ -1,10 +1,13 @@
-import {GET_TODOLIST,ADD_LIST,DELETE_LIST,CHANGE_INPUT,CHANGE_HEADERKEY,CHANGE_HEADERSHOW,CHANGE_SIDEKEY} from './actionType'
+import {GET_TODOLIST,ADD_LIST,DELETE_LIST,CHANGE_INPUT,CHANGE_HEADERKEY,CHANGE_HEADERSHOW,CHANGE_SIDEKEY,GETOWNERLIST,CHANGE_LOADINGSHOW,CHNAGE_SEARCHINPUT,GET_FILTERSEARCH} from './actionType'
 let defaultData={
   inputVal:'write',
   list:['今天是星期四了','还有15分钟就下班了','开心'],
   headerkey:0,
   headerShow:true,
-  sideKey:0
+  sideKey:0,
+  OwnerList:[],
+  loadingShow:true,
+  searchInput:''
 }
 export default (state = defaultData , action)=>{ 
   // console.log(action)
@@ -44,5 +47,30 @@ export default (state = defaultData , action)=>{
     newState.sideKey = action.key
     return newState
   }
+  if(action.type === GETOWNERLIST){
+    let newState = JSON.parse(JSON.stringify(state))
+    newState.OwnerList = action.data
+    newState.loadingShow = false
+    return newState
+  }
+  if(action.type === CHANGE_LOADINGSHOW){
+    let newState = JSON.parse(JSON.stringify(state))
+    newState.loadingShow = action.value
+    return newState
+  }
+  if(action.type === CHNAGE_SEARCHINPUT ){
+    let newState = JSON.parse(JSON.stringify(state))
+    newState.searchInput = action.value
+    return newState
+  }
+  if(action.type === GET_FILTERSEARCH) {
+    let newState = JSON.parse(JSON.stringify(state))
+    // const newList = newState.OwnerList.filter((item)=>{
+    //   return item.name.includes(newState.searchInput)
+    // })
+    newState.OwnerList = action.data
+    return newState
+  }
+
   return state
 }

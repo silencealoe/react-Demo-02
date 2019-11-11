@@ -30,7 +30,7 @@ class MyHeader extends Component {
           </Menu.Item>
           <Menu.Item key="2"> 
             <NavLink to="/list/1234">
-              nav 2 
+              仓库
             </NavLink></Menu.Item>
           <Menu.Item key="3">
             <NavLink to="/mypage">
