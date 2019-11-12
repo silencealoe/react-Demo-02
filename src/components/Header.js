@@ -33,8 +33,8 @@ class MyHeader extends Component {
               仓库
             </NavLink></Menu.Item>
           <Menu.Item key="3">
-            <NavLink to="/mypage">
-              nav 3
+            <NavLink to="/status">
+              状态
             </NavLink>
           </Menu.Item>
         </Menu>

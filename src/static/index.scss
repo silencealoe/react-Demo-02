@@ -1,8 +1,9 @@
 li{
   list-style: none;
 }
-p{
+p,ul{
   margin:0;
+  padding:0;
 }
 .loading{
   position: absolute;
@@ -18,11 +19,11 @@ p{
     width:100%;
     flex-wrap:wrap;
     border-top:1px solid gray;
-    padding:0;
     padding-top:20px;
     justify-content:flex-start;
+    box-sizing: border-box;
     .studylist_item{
-      margin-right:2%;
+      margin-right:2.5%;
       margin-bottom:10px;
       width:18%;
       height:200px;
@@ -30,7 +31,6 @@ p{
       box-shadow: 0 0 4px 4px #f0f0f0;
       border-radius: 4px;
       padding: 20px;
-      cursor: pointer;
       .itemhead{
         display: flex;
         justify-content: space-between;
@@ -38,6 +38,7 @@ p{
         h3{
           line-height: 20px;
           font-size: 16px;
+          cursor: pointer;
           span{
             color:#1890ff;
             margin-left: 10px;
@@ -46,7 +47,10 @@ p{
       }
       .itemdescription{
         height:70px;
+        line-height: 14px;
+        font-size: 12px;
         margin-bottom: 20px;
+        overflow: hidden;
       }
       .item_footer{
         display: flex;
@@ -58,12 +62,15 @@ p{
     }
   }
   .list_pagination{
-    width:300px;
-    margin:40px auto;
+    margin:40px 0;
+    text-align: center;
+    ul{
+      display: inline-block;
+    }
   }
   .search{
     margin:10px 0;
-    width:310px;
+    width:315px;
     position: relative;
     .search_input{
       border:none;

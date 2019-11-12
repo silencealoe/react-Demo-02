@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import {Icon,message,Pagination} from 'antd'
-import {changeHeaderKey, getOwnerList,changeLoadingShow,changeInput,getFilterOwnerList} from '../store/actionCreator'
+import {changeHeaderKey, getOwnerList,changeLoadingShow,changeInput,getFilterOwnerList,getPageList} from '../store/actionCreator'
 import '@/static/index.scss'
 import Loading from '@/components//Loading'
 class List extends Component {
@@ -9,7 +9,6 @@ class List extends Component {
     super(props);
     this.state = {
       id:'',
-      current:1
     }
   }
   componentWillMount(){
@@ -26,7 +25,7 @@ class List extends Component {
   }
 
   render() { 
-    const {loadingShow,handlePress,handlesearch,searchInput,handleChange,formatDate}=this.props
+    const {loadingShow,handlePress,handlesearch,searchInput,handleChange,formatDate,clickItem,changePage,pageKey}=this.props
     return (
       <>
       {
@@ -49,7 +48,7 @@ class List extends Component {
                 return(
                   <li className="studylist_item" key={item.id}>
                   <div className="itemhead">
-                    <h3> 
+                    <h3 onClick={clickItem.bind(this,item.id)}> 
                       <Icon type="book" style={{fontSize:16,color:'gray'}}/>
                       <span>{item.name}</span>
                     </h3>
@@ -69,9 +68,13 @@ class List extends Component {
               })
             }
           </ul>
-          <div className="list_pagination">
-              <Pagination current={this.state.current} onChange={this.onChange} total={50} />
-          </div>
+          {
+            !loadingShow?
+             <div className="list_pagination">
+                <Pagination defaultPageSize={5} current={pageKey} onChange={changePage} total={55} />
+             </div>:''
+          }
+         
         </div>
       </>
     )
@@ -83,7 +86,8 @@ const mapStateToProps=(state)=>{
     headerKey:state.headerkey,
     ownerList:state.OwnerList,
     loadingShow:state.loadingShow,
-    searchInput:state.searchInput
+    searchInput:state.searchInput,
+    pageKey:state.pageKey
   }
 }
 const mapDispatchToProps=(dispatch)=>{
@@ -99,10 +103,11 @@ const mapDispatchToProps=(dispatch)=>{
       let days=Math.floor(dis/1000/60/60/24)
       let hour=Math.floor(dis/1000/60/60)
       let minutes=Math.floor(dis/1000/60)
+      let seconds=Math.floor(dis/1000)
       if(days) return `${days}天`
       if(hour) return `${hour}小时`
       if(minutes) return `${minutes}分钟`
-      return `当`
+      return `${seconds}秒`
     },
     getOwner(){
      const action = getOwnerList()
@@ -129,6 +134,18 @@ const mapDispatchToProps=(dispatch)=>{
       if(event.charCode === 13){
          search(value)
       }
+    },
+    clickItem(id){
+      console.log(this)
+      //this.props.history.push({pathname:'/detail',query:{id}}) //使用query传参
+      // this.props.history.push({pathname:'/detail/'+id}) //params传参
+      this.props.history.push({pathname:'/detail',state:{id}}) //state传参 参数加密
+      // this.props.history.push({pathname:'/detail?'+id})  //同params传参
+    },
+    changePage(page){
+      console.log(page)
+      const action = getPageList(page)
+      dispatch(action)
     }
   }
 }

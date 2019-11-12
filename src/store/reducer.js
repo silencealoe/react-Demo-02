@@ -1,4 +1,16 @@
-import {GET_TODOLIST,ADD_LIST,DELETE_LIST,CHANGE_INPUT,CHANGE_HEADERKEY,CHANGE_HEADERSHOW,CHANGE_SIDEKEY,GETOWNERLIST,CHANGE_LOADINGSHOW,CHNAGE_SEARCHINPUT,GET_FILTERSEARCH} from './actionType'
+import {
+  GET_TODOLIST,
+  ADD_LIST,
+  DELETE_LIST,
+  CHANGE_INPUT,
+  CHANGE_HEADERKEY,
+  CHANGE_HEADERSHOW,
+  CHANGE_SIDEKEY,
+  GETOWNERLIST,
+  CHANGE_LOADINGSHOW,
+  CHNAGE_SEARCHINPUT,
+  GET_FILTERSEARCH,
+  CHANGE_PAGEKEY} from './actionType'
 let defaultData={
   inputVal:'write',
   list:['今天是星期四了','还有15分钟就下班了','开心'],
@@ -7,7 +19,8 @@ let defaultData={
   sideKey:0,
   OwnerList:[],
   loadingShow:true,
-  searchInput:''
+  searchInput:'',
+  pageKey:1
 }
 export default (state = defaultData , action)=>{ 
   // console.log(action)
@@ -69,6 +82,12 @@ export default (state = defaultData , action)=>{
     //   return item.name.includes(newState.searchInput)
     // })
     newState.OwnerList = action.data
+    return newState
+  }
+  if(action.type === CHANGE_PAGEKEY) {
+    let newState = JSON.parse(JSON.stringify(state))
+    newState.pageKey = action.data.page
+    newState.OwnerList=action.data.list
     return newState
   }
 

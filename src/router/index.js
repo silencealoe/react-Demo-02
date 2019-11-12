@@ -4,9 +4,10 @@ import Index from '../views/index'
 import TodoList from '../components/Todolist'
 import App from '../app';
 import List from '../views/list'
-import Mypage from '../views/mypage'
+import Status from '../views/status'
 import NotFound from '../views/notfound'
 import ReactHocks from '../views/ReactHocks/ReactHocks'
+import Detail from '../views/detail';
 
 const AppRouter = ()=>{
   
@@ -29,7 +30,8 @@ const AppRouter = ()=>{
             
           }/>
           <Route path="/list/:listid" component={List}  />
-          <Route path="/mypage" component={Mypage} />
+          <Route path="/status" component={Status} />
+          <Route path="/detail" component={Detail} />
           <Redirect from="/" to="/index/todolist" exact/>
           <Route  component={NotFound} />
           
