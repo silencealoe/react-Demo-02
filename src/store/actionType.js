@@ -10,4 +10,5 @@ export const CHANGE_LOADINGSHOW='changeloadingshow'
 export const CHNAGE_SEARCHINPUT='change_searchinput'
 export const GET_FILTERSEARCH='getfiltersearch'
 export const CHANGE_PAGEKEY='change_pagekey'
+export const GET_CREATESTATUS='get_createstatus'
 

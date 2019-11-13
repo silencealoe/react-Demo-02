@@ -7,7 +7,9 @@ import {
   CHANGE_LOADINGSHOW,
   CHNAGE_SEARCHINPUT,
   GET_FILTERSEARCH,
-  CHANGE_PAGEKEY} from './actionType'
+  CHANGE_PAGEKEY,
+  GET_CREATESTATUS
+} from './actionType'
 import axios from 'axios'
 
 export const getListAction=(list)=>({
@@ -46,6 +48,10 @@ export const changePageAction=(data)=>({
   type:CHANGE_PAGEKEY,
   data
 })
+export const getCreateStatusAction=(data)=>({
+  type:GET_CREATESTATUS,
+  data
+})
 export const getList=()=>{
   return (dispatch)=>{
     axios.get('http://rap2api.taobao.org/app/mock/232506/getTodoList').then(res=>{
@@ -75,6 +81,15 @@ export const getPageList=(page)=>{
     axios.get(`http://rap2api.taobao.org/repository/list?user=&organization=&name=&cursor=${page}&limit=100`).then(res=>{
       console.log(res.data)
       const action=changePageAction({page,list:res.data.data})
+      dispatch(action)
+    })
+  }
+}
+export const getCreateStatus=()=>{
+  return (dispatch)=>{
+    axios.get(`http://rap2api.taobao.org/app/mock/232506/status/createstatus`).then(res=>{
+      console.log(res.data.data)
+      const action=getCreateStatusAction(res.data.data)
       dispatch(action)
     })
   }

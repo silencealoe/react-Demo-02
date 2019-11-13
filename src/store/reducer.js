@@ -10,7 +10,8 @@ import {
   CHANGE_LOADINGSHOW,
   CHNAGE_SEARCHINPUT,
   GET_FILTERSEARCH,
-  CHANGE_PAGEKEY} from './actionType'
+  CHANGE_PAGEKEY,
+  GET_CREATESTATUS} from './actionType'
 let defaultData={
   inputVal:'write',
   list:['今天是星期四了','还有15分钟就下班了','开心'],
@@ -20,7 +21,8 @@ let defaultData={
   OwnerList:[],
   loadingShow:true,
   searchInput:'',
-  pageKey:1
+  pageKey:1,
+  statusCreateData:[]
 }
 export default (state = defaultData , action)=>{ 
   // console.log(action)
@@ -88,6 +90,11 @@ export default (state = defaultData , action)=>{
     let newState = JSON.parse(JSON.stringify(state))
     newState.pageKey = action.data.page
     newState.OwnerList=action.data.list
+    return newState
+  }
+  if(action.type === GET_CREATESTATUS) {
+    let newState = JSON.parse(JSON.stringify(state))
+    newState.statusCreateData=action.data
     return newState
   }
 

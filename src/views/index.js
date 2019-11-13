@@ -1,7 +1,6 @@
 import React, { Component,Fragment} from 'react';
 import { Layout} from 'antd';
 import {connect} from 'react-redux'
-import {Redirect} from 'react-router-dom'
 import 'antd/dist/antd.css';
 import Breadcrumb from '../components/Breadcrumb'
 import Sider from '../components/Sider'

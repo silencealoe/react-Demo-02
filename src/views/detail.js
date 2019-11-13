@@ -22,7 +22,7 @@ class Detail extends Component {
         {/* <p>{this.props.match.params.id}</p> */}
         <p>{this.props.location.state.id}</p>
         {/* <p>{this.props.location.search}</p> */}
-      </>
+      </> 
     );
   }
 }
