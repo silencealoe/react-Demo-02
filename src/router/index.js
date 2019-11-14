@@ -8,6 +8,7 @@ import Status from '../views/status'
 import NotFound from '../views/notfound'
 import ReactHocks from '../views/ReactHocks/ReactHocks'
 import Detail from '../views/detail';
+import BaiduMap from '../views/baiduMap'
 
 const AppRouter = ()=>{
   
@@ -22,6 +23,7 @@ const AppRouter = ()=>{
               <Switch>
                 <Route path="/index/todolist" component={TodoList} exact/>
                 <Route path="/index/reacthocks" component={ReactHocks}/>
+                <Route path="/index/map" component={BaiduMap}/>
                 <Redirect from="/index" to="/index/todolist"/>
               </Switch>
             </Index>

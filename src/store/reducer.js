@@ -11,7 +11,8 @@ import {
   CHNAGE_SEARCHINPUT,
   GET_FILTERSEARCH,
   CHANGE_PAGEKEY,
-  GET_CREATESTATUS} from './actionType'
+  GET_CREATESTATUS,
+  GET_ACTIVESTATUS} from './actionType'
 let defaultData={
   inputVal:'write',
   list:['今天是星期四了','还有15分钟就下班了','开心'],
@@ -22,7 +23,8 @@ let defaultData={
   loadingShow:true,
   searchInput:'',
   pageKey:1,
-  statusCreateData:[]
+  statusCreateData:[],
+  statusActiveData:[]
 }
 export default (state = defaultData , action)=>{ 
   // console.log(action)
@@ -95,6 +97,11 @@ export default (state = defaultData , action)=>{
   if(action.type === GET_CREATESTATUS) {
     let newState = JSON.parse(JSON.stringify(state))
     newState.statusCreateData=action.data
+    return newState
+  }
+  if(action.type === GET_ACTIVESTATUS) {
+    let newState = JSON.parse(JSON.stringify(state))
+    newState.statusActiveData=action.data
     return newState
   }
 

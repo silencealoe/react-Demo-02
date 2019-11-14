@@ -45,11 +45,15 @@ class MySider extends Component {
         title={
           <span>
             <Icon type="laptop" />
-            subnav 2
+            地理信息
           </span>
         }
       >
-        <Menu.Item key="5">option5</Menu.Item>
+        <Menu.Item key="5">
+          <NavLink to="/index/map">
+            地图
+          </NavLink>
+        </Menu.Item>
         <Menu.Item key="6">option6</Menu.Item>
         <Menu.Item key="7">option7</Menu.Item>
         <Menu.Item key="8">option8</Menu.Item>
