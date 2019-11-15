@@ -17,6 +17,7 @@ class Index extends Component {
     return ( 
       <Fragment>
         {/* <Redirect from="/" to="/index/todolist"/> */}
+        
         <Layout>
           <Content style={{ padding: '0 50px'}}>
             <Breadcrumb></Breadcrumb>

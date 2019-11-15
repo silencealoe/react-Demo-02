@@ -1,5 +1,4 @@
 'use strict';
-
 const fs = require('fs');
 const isWsl = require('is-wsl');
 const path = require('path');
@@ -677,8 +676,8 @@ module.exports = function(webpackEnv) {
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
     performance: false,
-    external:{
-      'BMap':'BMap'
-    }
+    // external:{
+    //   'BMap':'BMap'
+    // }
   };
 };

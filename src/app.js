@@ -1,7 +1,6 @@
 import React ,{Component}from 'react';
 import {Provider,connect} from 'react-redux'
 import store from './store/index'
-
 import Header from './components/Header'
 class Home extends Component {
   constructor(props) {
@@ -16,10 +15,6 @@ class Home extends Component {
           this.props.headerShow ?
             <Header></Header> : ''
         }
-
-        
-       
-         
       </div>
      
       )

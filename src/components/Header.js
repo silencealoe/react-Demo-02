@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Layout,Menu} from 'antd'
 import {connect} from 'react-redux'
 import {NavLink} from 'react-router-dom'
+import '../static/index.scss'
 
 const {Header}=Layout
 class MyHeader extends Component {
@@ -14,7 +15,11 @@ class MyHeader extends Component {
   render() { 
     return ( 
       <Header className="header">
-        <div className="logo" />
+        <div className="logo">
+          <NavLink to="/index">
+            <img src={[require('../static/img/bmslogo.png')]} alt="bms" width="100" height="40" />
+          </NavLink>
+        </div>
         <Menu
           theme="dark"
           mode="horizontal"

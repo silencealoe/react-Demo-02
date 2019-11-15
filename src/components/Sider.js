@@ -34,7 +34,7 @@ class MySider extends Component {
         </Menu.Item>
         <Menu.Item key="2">
           <NavLink to="/index/reacthocks">
-            React Hocks
+            React Hooks
           </NavLink>
           </Menu.Item>
         <Menu.Item key="3">option3</Menu.Item>

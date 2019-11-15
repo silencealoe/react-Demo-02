@@ -5,3 +5,11 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__? window.__R
 const enhancer = composeEnhancers(applyMiddleware(thunk))
 const store = createStore(reducer,enhancer)
 export default store
+
+//reducer分模块
+//import { tabbarReducer } from './reducers/tabbarreducer'
+// import { listReducer } from './reducers/listreducer'
+//var reducer = combineReducers({
+  // tabbarReducer,
+  // listReducer
+// })

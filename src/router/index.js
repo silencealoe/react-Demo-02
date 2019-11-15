@@ -9,6 +9,7 @@ import NotFound from '../views/notfound'
 import ReactHocks from '../views/ReactHocks/ReactHocks'
 import Detail from '../views/detail';
 import BaiduMap from '../views/baiduMap'
+import Login from '../views/account/login'
 
 const AppRouter = ()=>{
   
@@ -34,6 +35,8 @@ const AppRouter = ()=>{
           <Route path="/list/:listid" component={List}  />
           <Route path="/status" component={Status} />
           <Route path="/detail" component={Detail} />
+          <Route path="/account/login" component={Login} />
+
           <Redirect from="/" to="/index/todolist" exact/>
           <Route  component={NotFound} />
           
